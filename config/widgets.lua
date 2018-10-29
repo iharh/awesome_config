@@ -32,29 +32,31 @@ function widget_loader.init(awesome_context)
   })
 
   -- NetCtl
-  --w.netctl = widgets.netctl({
-    --update_interval = 5,
-    --preset = conf.net_preset,
-    --wlan_if = conf.wlan_if,
-    --eth_if = conf.eth_if,
+  -- w.netctl = widgets.netctl({
+  --  update_interval = 5,
+  --  preset = conf.net_preset,
+  --  wlan_if = conf.wlan_if,
+  --  eth_if = conf.eth_if,
   --})
   -- MUSIC
-  w.music = widgets.music.widget({
-      update_interval = 5,
-      backends = conf.music_players,
-      fg = beautiful.widget_music_bg,
-      bg = beautiful.panel_bg,
-      force_no_bgimage=true,
-      mopidy_player_command = awesome_context.cmds.tmux_run .. "ncmpcpp",
-      enable_notifications = false,
-      bold_artist = true,
-      --valign = "bottom",
-  })
-  -- volume
-  if lcarslist_enabled then
-    beautiful.apw_bg_color = beautiful.panel_bg
+  if awesome_context.have_music then
+    w.music = widgets.music.widget({
+        update_interval = 5,
+        backends = conf.music_players,
+        fg = beautiful.widget_music_bg,
+        bg = beautiful.panel_bg,
+        force_no_bgimage=true,
+        mopidy_player_command = awesome_context.cmds.tmux_run .. "ncmpcpp",
+        enable_notifications = false,
+        bold_artist = true,
+        --valign = "bottom",
+    })
   end
-  w.volume = require("third_party/apw/widget")
+  -- volume
+  --if lcarslist_enabled then
+  --  beautiful.apw_bg_color = beautiful.panel_bg
+  --end
+  --w.volume = require("third_party/apw/widget")
 
   local separator  = common.constraint({ width=beautiful.panel_widget_spacing, })
   -- systray_toggle
@@ -64,8 +66,8 @@ function widget_loader.init(awesome_context)
         --sep_media,
 
         separator,
-        --w.netctl,
-        --separator,
+        -- w.netctl,
+        -- separator,
 
         --sep_media,
         --h_sep,
@@ -76,11 +78,13 @@ function widget_loader.init(awesome_context)
   w.mem = widgets.mem({
     update_interval = 2,
     list_length = 20,
+    column_line_num = 10,
   })
   -- CPU
   w.cpu = widgets.cpu({
     update_interval = 2,
     list_length = 20,
+    column_line_num = 10,
   })
   -- Sensor
   w.temp = widgets.temp({
@@ -240,12 +244,14 @@ function widget_loader.init(awesome_context)
       --end)
     )
 
-    --sw.tasklist = awful.widget.tasklist{
-      --screen = s,
-      --filter = awful.widget.tasklist.filter.minimizedcurrenttags,
-      --buttons = tasklist_buttons,
-      --update_function = tasklist_addon.sorted_update,
-    --}
+    --[[
+    sw.tasklist = awful.widget.tasklist{
+      screen = s,
+      filter = awful.widget.tasklist.filter.minimizedcurrenttags,
+      buttons = tasklist_buttons,
+      update_function = tasklist_addon.sorted_update,
+    }
+    ]]--
     sw.tasklist = awful.widget.tasklist(
       s,
       awful.widget.tasklist.filter.minimizedcurrenttags,

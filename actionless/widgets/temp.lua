@@ -41,7 +41,9 @@ local function worker(args)
       temp.widget:set_bg(bg)
       temp.widget:set_fg(fg)
     end
-    temp.widget:set_text(string.format("%2i°C ", coretemp_now))
+    -- TODO: coretemp_now is not an integer at some cases
+    -- temp.widget:set_text(string.format("%2i°C ", coretemp_now))
+    temp.widget:set_text(coretemp_now .. "°C ") -- coretemp_now
   end
 
   gears_timer({

@@ -75,6 +75,7 @@ context = {
   },
   -- @TODO: move to 'widget_config'
   have_battery = true,
+  have_music = true,
   sensor = "Core 0",
   apw_on_the_left = false,
 

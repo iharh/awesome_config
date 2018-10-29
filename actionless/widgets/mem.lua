@@ -23,6 +23,7 @@ local mem = {
 
 local function worker(args)
   args   = args or {}
+  local column_line_num  = args.column_line_num or 6
   local update_interval  = args.update_interval or 5
   mem.timeout = args.timeout or 0
 
@@ -38,8 +39,8 @@ local function worker(args)
 
   mem.command = "top -o \\%MEM -b -n 1 -w 512"
   mem.columns = args.columns or {
-    percent=10,
-    name=12
+    percent=9, --TODO: 10,
+    name=11 -- TODO: 12
   }
 
   function mem.hide_notification()
@@ -76,13 +77,13 @@ local function worker(args)
     local column_headers = h_string.split(
       h_table.range(
         parse.string_to_lines(output),
-        6, 6
+        column_line_num, column_line_num
       )[1], ' '
     )
     for _, line in ipairs(
       h_table.range(
         parse.string_to_lines(output),
-        7
+        column_line_num+1
       )
     ) do
       local values = h_string.split(line, ' ')

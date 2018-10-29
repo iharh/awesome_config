@@ -64,9 +64,30 @@ function rules.init(awesome_context)
 
       -- Applications:
 
-      { rule = { class = "Skype" },
+      { rule = { class = "Firefox" },
+        properties = {
+          tag=capi.screen.primary.tags[2],
+          raise=false
+        }
+      },
+
+      { rule = { class = "Google-chrome" },
+        properties = {
+          tag=capi.screen.primary.tags[3],
+          raise=false
+        }
+      },
+
+      { rule_any = { class = { "Skype", "Slack", "TelegramDesktop" } },
         properties = {
           tag=capi.screen.primary.tags[4],
+          raise=false
+        }
+      },
+
+      { rule_any = { class = { "Pcmanfm", "calibre", "okular" } },
+        properties = {
+          tag=capi.screen.primary.tags[5],
           raise=false
         }
       },

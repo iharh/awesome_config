@@ -25,6 +25,7 @@ local cpu = {
 
 local function worker(args)
   args     = args or {}
+  local column_line_num  = args.column_line_num or 6
   local update_interval  = args.update_interval or 5
   cpu.cores_number = tonumber(parse.command_to_string('nproc'))
   cpu.timeout = args.timeout or 0
@@ -42,7 +43,7 @@ local function worker(args)
   cpu.columns = args.columns or {
     pid=1,
     percent=9,
-    name=12
+    name=11
   }
 
   function cpu.hide_notification()
@@ -72,6 +73,7 @@ local function worker(args)
   end
 
   function cpu.notification_callback_done(output)
+    local result_string = ''
     local notification_id = cpu.get_notification_id()
     if not notification_id then return end
     local result = {}
@@ -79,13 +81,13 @@ local function worker(args)
     local column_headers = h_string.split(
       h_table.range(
         parse.string_to_lines(output),
-        6, 6
+        column_line_num, column_line_num
       )[1], ' '
     )
     for _, line in ipairs(
       h_table.range(
         parse.string_to_lines(output),
-        7
+        column_line_num + 1
       )
     ) do
       --local pid, percent, name = line:match("^(%d+)%s+(.+)%s+(.*)")
@@ -93,6 +95,7 @@ local function worker(args)
       local pid = values[cpu.columns.pid]
       local percent = values[cpu.columns.percent]
       local name = values[cpu.columns.name]
+
       percent = percent + 0
       if percent and percent ~= 0 and name ~= 'top' then
         if result[pid] then
@@ -104,7 +107,6 @@ local function worker(args)
       end
     end
 
-    local result_string = ''
     local counter = 0
     local num_records = h_table.getn(result)
     for pid, percent in h_table.spairs(result, function(t,a,b) return t[b] < t[a] end) do
@@ -125,6 +127,7 @@ local function worker(args)
     else
       result_string = "no running processes atm"
     end
+
     cpu.notification = naughty.notify({
       text = result_string,
       timeout = cpu.timeout,

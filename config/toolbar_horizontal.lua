@@ -104,7 +104,7 @@ function toolbar.init(awesome_context)
       {
         layout = wibox.layout.fixed.horizontal,
         separator,
-        not awesome_context.apw_on_the_left and apw,
+        separator, --TODO: not awesome_context.apw_on_the_left and apw,
         common.panel_shape(wibox.widget{
           layout = wibox.layout.fixed.horizontal,
           iseparator,
