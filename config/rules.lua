@@ -92,11 +92,10 @@ function rules.init(awesome_context)
         }
       },
 
-      { rule = { class = "Spotify" },
+      { rule_any = { class = { "qBittorent", "xfreerdp" } },
         properties = {
-          tag=capi.screen.primary.tags[7],
-          raise=false
-        }
+          tag=capi.screen.primary.tags[6],
+        },
       },
 
       { rule = { class = "Transmission-gtk"},
@@ -113,11 +112,13 @@ function rules.init(awesome_context)
           width = dpi(800),
       }, },
 
-      { rule = { class = "qBittorent"},
+      { rule = { class = "Spotify" },
         properties = {
-          tag=capi.screen.primary.tags[6],
-        },
+          tag=capi.screen.primary.tags[7],
+          raise=false
+        }
       },
+
 
       { rule = { name = "xfce4-panel"},
         properties = {
