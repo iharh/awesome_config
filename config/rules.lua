@@ -64,7 +64,7 @@ function rules.init(awesome_context)
 
       -- Applications:
 
-      { rule = { class = "Firefox" },
+      { rule_any = { class = { "Firefox", "firefox" } },
         properties = {
           tag=capi.screen.primary.tags[2],
           raise=false
