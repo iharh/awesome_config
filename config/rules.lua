@@ -92,11 +92,17 @@ function rules.init(awesome_context)
         }
       },
 
-      { rule_any = { class = { "qBittorent", "xfreerdp" } },
+      { rule_any = { class = { "qBittorent", "xfreerdp", "keepass2", "KeePass2" } },
         properties = {
           tag=capi.screen.primary.tags[6],
         },
       },
+
+      { rule_any = { class = { "viber", "Viber" } },
+        properties = {
+          floating = false,
+          ontop = false,
+      }, },
 
       { rule = { class = "Transmission-gtk"},
         properties = {
